@@ -19,4 +19,4 @@
 
 Выполни одну команду:
 
-curl -fsSL https://raw.githubusercontent.com/Denis33674/TUIC-v5-Installer-for-Russia-2026/main/tuic-install.sh | bash
+```curl -fsSL https://raw.githubusercontent.com/Denis33674/TUIC-v5-Installer-for-Russia-2026/main/tuic-install.sh | bash```
