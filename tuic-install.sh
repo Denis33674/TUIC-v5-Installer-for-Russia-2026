@@ -56,11 +56,15 @@ mkdir -p /etc/tuic
 # Генерация конфигурации
 log "Создаём конфигурацию сервера..."
 
+UUID=$(cat /proc/sys/kernel/random/uuid)
+PASSWORD=$(openssl rand -hex 16)
+SERVER_IP=$(curl -4s https://ifconfig.me)
+
 cat > /etc/tuic/config.json << EOF
 {
   "server": "[::]:443",
-  "uuid": "$(cat /proc/sys/kernel/random/uuid)",
-  "password": "$(openssl rand -hex 16)",
+  "uuid": "$UUID",
+  "password": "$PASSWORD",
   "congestion_control": "bbr",
   "alpn": ["h3", "h2", "http/1.1"],
   "tls": {
