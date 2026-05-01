@@ -41,18 +41,20 @@ apt install -y curl unzip jq qrencode ufw
 
 # Скачиваем последнюю версию TUIC
 log "Скачиваем TUIC v5..."
-LATEST_URL=$(curl -s https://api.github.com/repos/2dust/tuic/releases/latest | jq -r '.assets[] | select(.name | test("x86_64-unknown-linux-gnu")) | .browser_download_url')
+
+# Более надёжный способ
+LATEST_URL=$(curl -s https://api.github.com/repos/2dust/tuic/releases/latest | jq -r '.assets[] | select(.name | test("linux-gnu")) | .browser_download_url' | head -n 1)
 
 if [[ -z "$LATEST_URL" || "$LATEST_URL" == "null" ]]; then
-    warn "API GitHub не ответил. Используем прямую ссылку..."
+    warn "GitHub API не ответил. Используем прямую ссылку..."
     LATEST_URL="https://github.com/2dust/tuic/releases/latest/download/tuic-server-x86_64-unknown-linux-gnu"
 fi
 
 curl -L -o tuic.zip "$LATEST_URL" || error "Не удалось скачать TUIC"
 unzip -o tuic.zip
-mv tuic /usr/local/bin/tuic-server
+mv tuic /usr/local/bin/tuic-server 2>/dev/null || mv tuic-server /usr/local/bin/tuic-server
 chmod +x /usr/local/bin/tuic-server
-rm -f tuic.zip tuic
+rm -f tuic.zip tuic tuic-server
 
 log "TUIC v5 успешно установлен!"
 
