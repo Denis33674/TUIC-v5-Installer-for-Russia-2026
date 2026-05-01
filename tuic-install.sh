@@ -42,13 +42,11 @@ apt install -y curl unzip jq qrencode ufw
 # Скачиваем последнюю версию TUIC
 log "Скачиваем TUIC v5..."
 
-# Прямой и надёжный способ
 LATEST_URL="https://github.com/2dust/tuic/releases/latest/download/tuic-server-x86_64-unknown-linux-gnu"
 
-curl -L -o tuic-server "$LATEST_URL" || error "Не удалось скачать TUIC"
+curl -L -o /usr/local/bin/tuic-server "$LATEST_URL" || error "Не удалось скачать TUIC"
 
-chmod +x tuic-server
-mv tuic-server /usr/local/bin/tuic-server
+chmod +x /usr/local/bin/tuic-server
 
 log "TUIC v5 успешно установлен!"
 
